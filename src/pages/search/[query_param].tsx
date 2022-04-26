@@ -40,6 +40,7 @@ export default Search;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
+    console.log(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID);
     const client = algoliasearch(
       process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
       process.env.NEXT_PUBLIC_ALGOLIA_ADMIN_KEY as string
@@ -54,7 +55,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     console.error({ err });
     // redirect to the home page on error
     ctx.res.writeHead(302, { Location: "/" });
-    ctx.res.write({ err });
+    ctx.res.write(err);
     ctx.res.end();
 
     // `as never` prevents inference issues
